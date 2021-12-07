@@ -12,4 +12,7 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      run: echo "Runs this workflow"
+      - id: step1
+        run: echo "Runs this workflow"
+      - id: step 2
+        run: echo "Complete workflow"
