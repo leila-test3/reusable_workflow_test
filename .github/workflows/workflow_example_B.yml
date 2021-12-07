@@ -11,11 +11,11 @@ on:
         required: true
 
 jobs:
-  example_job:
-    name: Pass input and secrets to my-action
+  add-file:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/my-action@v1
-        with:
-          username: ${{ inputs.username }}
-          token: ${{ secrets.token }}      
+      - name: Add file
+        run: 'curl -H "Authorization: bearer $GITHUB_TOKEN" -X PUT "https://api.github.com/repos/$REPO/contents/new_file.md" --data ''{"message": "Create new_file", "content": "Ran the reusable workflow!"}'' '
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }} 
