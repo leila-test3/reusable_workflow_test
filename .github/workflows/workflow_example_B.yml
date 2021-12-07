@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add file
-        run: 'curl -H "Authorization: bearer $token" -X PUT "https://api.github.com/repos/$repo/contents/new_file.md" --data ''{"message": "Create new_file", "content": "Ran the reusable workflow!"}'' '
+        run: 'curl -H "Authorization: bearer $TOKEN" -X PUT "https://api.github.com/repos/$REPO/contents/new_file.md" --data ''{"message": "Create new_file", "content": "Ran the reusable workflow!"}'' '
         env:
-          token: ${{ secrets.token }}
-          repo: ${{ inputs.repo_name }} 
+          TOKEN: ${{ secrets.token }}
+          REPO: ${{ inputs.repo_name }} 
