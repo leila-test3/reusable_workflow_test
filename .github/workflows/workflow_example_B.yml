@@ -3,7 +3,7 @@ name: Reusable workflow example
 on:
   workflow_call:
     inputs:
-      username:
+      repo_name:
         required: true
         type: string
     secrets:
@@ -17,5 +17,5 @@ jobs:
       - name: Add file
         run: 'curl -H "Authorization: bearer $GITHUB_TOKEN" -X PUT "https://api.github.com/repos/$REPO/contents/new_file.md" --data ''{"message": "Create new_file", "content": "Ran the reusable workflow!"}'' '
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }} 
+          token: ${{ secrets.token }}
+          repo: ${{ inputs.repo_name }} 
