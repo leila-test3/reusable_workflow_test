@@ -1,0 +1,48 @@
+name: publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: 'Download artifact'
+         uses: actions/github-script@v3.1.0
+         with:
+           script: |
+             var runs = await github.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'build.yml'
+             });
+             run = runs.data.workflow_runs[0];
+             run_id = run.id;
+             console.log(`run id ${run_id}`)
+             
+             var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: run_id
+             });
+             var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "bin"
+             })[0];
+             var download = await github.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+             });
+             var fs = require('fs');
+             fs.writeFileSync('${{github.workspace}}/bin.zip', Buffer.from(download.data));
+       - name: unzip
+         run: |
+             mkdir temp
+             unzip bin.zip -d temp
+       - name: Publish
+         run: |
+            cd temp
+            # show the file contents
+            cat stored
