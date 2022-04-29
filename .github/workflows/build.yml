@@ -6,7 +6,7 @@ jobs:
   job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "This is all working fine." >> stored
+      - run: echo "This is not okay!" >> stored
       - uses: actions/upload-artifact@v2
         with:
           name: bin
