@@ -15,6 +15,7 @@ jobs:
              var runs = await github.actions.listWorkflowRuns({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
+                branch: 'main',
                 workflow_id: 'build.yml'
              });
              run = runs.data.workflow_runs[0];
