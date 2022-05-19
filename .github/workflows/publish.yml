@@ -16,7 +16,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id: 'build.yml',
-                branch: 'main'
+                branch: 'leila-test3-patch-2'
              });
              run = runs.data.workflow_runs[0];
              run_id = run.id;
