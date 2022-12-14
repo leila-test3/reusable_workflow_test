@@ -15,7 +15,8 @@ jobs:
              var runs = await github.actions.listWorkflowRuns({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                workflow_id: 'build.yml'
+                workflow_id: 'build.yml',
+                branch: 'leila-test3-patch-2'
              });
              run = runs.data.workflow_runs[0];
              run_id = run.id;
